@@ -1,7 +1,7 @@
 
-from models import Base, engine
+from models import Base, engine, Quote
 
-# creating all tables in the database
+
 Base.metadata.create_all(engine)
 
 print("Tables created succesfully!")
