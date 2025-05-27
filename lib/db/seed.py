@@ -1,4 +1,4 @@
-from models import User, MoodLog, engine
+from models import User, MoodLog, engine, Quote
 from sqlalchemy.orm import sessionmaker
 from datetime import datetime, timedelta
 import random
@@ -6,12 +6,19 @@ import random
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# clearing existing data
+quotes = [
+    Quote(mood="Sad", text="Tough times don’t last. Tough people do."),
+    Quote(mood="Happy", text="Happiness is only real when shared."),
+    Quote(mood="Anxious", text="Just breathe. You are strong."),
+]
+session.add_all(quotes)
+session.commit()
+print("Quotes seeded successfully!")
+
 session.query(MoodLog).delete()
 session.query(User).delete()
 session.commit()
 
-# Creating users
 users = [
     User(name="Christina"),
     User(name="James"),
@@ -20,7 +27,7 @@ users = [
 session.add_all(users)
 session.commit()
 
-# Listing of moods
+
 moods = [
     "Happy", "Sad", "Excited", "Anxious", "Calm",
     "Energetic", "Tired", "Frustrated", "Hopeful", "Content",
@@ -28,18 +35,18 @@ moods = [
     "Grateful", "Bored", "Confident", "Restless", "Curious"
 ]
 
-# Creating at  mood logs randomly distributed
+
 mood_logs = []
 
-# now = datetime.utcnow()
+
 
 from datetime import datetime, timezone
 now = datetime.now(timezone.utc)
 
-for i in range(30):  # 30 logs total for more variety
+for i in range(30):  
     mood = random.choice(moods)
     user = random.choice(users)
-    # Random time within last 10 days
+
     timestamp = now - timedelta(days=random.randint(0, 9), hours=random.randint(0,23), minutes=random.randint(0,59))
     mood_logs.append(MoodLog(mood=mood, timestamp=timestamp, user_id=user.id))
 
