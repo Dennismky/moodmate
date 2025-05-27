@@ -1,19 +1,44 @@
-from sqlalchemy import create_engine
+from models import User, MoodLog, engine
 from sqlalchemy.orm import sessionmaker
-from models import Base, User, MoodLog
+from datetime import datetime, timedelta
+import random
 
-engine = create_engine('sqlite:///moodmate.db')
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Creating test user and mood logs
-user = User(name="Christina")
-session.add(user)
+# clearing existing data
+session.query(MoodLog).delete()
+session.query(User).delete()
 session.commit()
 
-mood1 = MoodLog(mood="Happy", user_id=user.id)
-mood2 = MoodLog(mood="Stressed", user_id=user.id)
-
-session.add_all([mood1, mood2])
+# Creating users
+users = [
+    User(name="Christina"),
+    User(name="James"),
+    User(name="Aisha"),
+]
+session.add_all(users)
 session.commit()
-print("Seeded database!")
+
+# Listing of moods
+moods = [
+    "Happy", "Sad", "Excited", "Anxious", "Calm",
+    "Energetic", "Tired", "Frustrated", "Hopeful", "Content",
+    "Nervous", "Relaxed", "Overwhelmed", "Inspired", "Lonely",
+    "Grateful", "Bored", "Confident", "Restless", "Curious"
+]
+
+# Creating at  mood logs randomly distributed
+mood_logs = []
+now = datetime.utcnow()
+for i in range(30):  # 15 logs total for more variety
+    mood = random.choice(moods)
+    user = random.choice(users)
+    # Random time within last 10 days
+    timestamp = now - timedelta(days=random.randint(0, 9), hours=random.randint(0,23), minutes=random.randint(0,59))
+    mood_logs.append(MoodLog(mood=mood, timestamp=timestamp, user_id=user.id))
+
+session.add_all(mood_logs)
+session.commit()
+
+print("Database seeded with 3 users and 15 creative mood logs!")
