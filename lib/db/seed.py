@@ -30,8 +30,13 @@ moods = [
 
 # Creating at  mood logs randomly distributed
 mood_logs = []
-now = datetime.utcnow()
-for i in range(30):  # 15 logs total for more variety
+
+# now = datetime.utcnow()
+
+from datetime import datetime, timezone
+now = datetime.now(timezone.utc)
+
+for i in range(30):  # 30 logs total for more variety
     mood = random.choice(moods)
     user = random.choice(users)
     # Random time within last 10 days
