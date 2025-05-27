@@ -1,7 +1,15 @@
 
+ suggestions-model
+from lib.db.base import Base
+from lib.db.models import User, MoodLog, Suggestion
+from sqlalchemy import create_engine
+
+engine = create_engine('sqlite:///lib/db/moodmate.db')
+
 from models import Base, engine, Quote
 
 
+usermodel-dennis
 Base.metadata.create_all(engine)
 
-print("Tables created succesfully!")
+print("Database and all tables created successfully!")

@@ -9,3 +9,5 @@ class User(Base):
     name = Column(String, unique=True, nullable=False)
 
     mood_logs = relationship("MoodLog", back_populates="user")
+    suggestions = relationship("Suggestion", back_populates="user")
+
