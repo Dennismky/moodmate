@@ -27,6 +27,15 @@ def choose_mood():
     choice = int(input("Select a mood by number: "))
     return moods[choice - 1]
 
+def view_mood_logs(user):
+    print(f"\n🧾 Mood Log for {user.name}:")
+    if not user.mood_logs:
+        print("No mood logs found.")
+        return
+    for log in user.mood_logs:
+        print(f"- [{log.timestamp.strftime('%Y-%m-%d %H:%M')}] Mood: {log.mood.capitalize()} | Suggestion: {log.suggestion}")
+
+
 def log_mood(user, mood):
     suggestion = get_random_suggestion(mood)
     mood_log = MoodLog(user_id=user.id, mood=mood, suggestion=suggestion)
@@ -38,8 +47,24 @@ def log_mood(user, mood):
 def main():
     print("🧠 Welcome to MoodMate 🧠")
     user = user_login_or_register()
-    mood = choose_mood()
-    log_mood(user, mood)
+
+    while True:
+        print("\nWhat would you like to do?")
+        print("1. Log my mood")
+        print("2. View my mood logs")
+        print("3. Exit")
+        choice = input("Enter choice (1/2/3): ")
+
+        if choice == "1":
+            mood = choose_mood()
+            log_mood(user, mood)
+        elif choice == "2":
+            view_mood_logs(user)
+        elif choice == "3":
+            print("Goodbye! Take care of your mood 💙")
+            break
+        else:
+            print("Invalid choice. Please try again.")
 
 if __name__ == "__main__":
     main()
