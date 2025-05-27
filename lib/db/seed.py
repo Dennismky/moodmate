@@ -7,10 +7,28 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 quotes = [
-    Quote(mood="Sad", text="Tough times don’t last. Tough people do."),
     Quote(mood="Happy", text="Happiness is only real when shared."),
+    Quote(mood="Sad", text="Tough times do not last. Tough people do."),
+    Quote(mood="Excited", text="Let your excitement be greater than your fear."),
     Quote(mood="Anxious", text="Just breathe. You are strong."),
+    Quote(mood="Calm", text="Peace begins with a deep breath."),
+    Quote(mood="Energetic", text="Energy and persistence conquer all things."),
+    Quote(mood="Tired", text="Rest is not a waste of time; it is how you grow stronger."),
+    Quote(mood="Frustrated", text="Frustration is a sign of ambition. Take a step back."),
+    Quote(mood="Hopeful", text="Hope is the thing with feathers that perches in the soul."),
+    Quote(mood="Content", text="Contentment is not the fulfillment of what you want, but the realization of how much you already have."),
+    Quote(mood="Nervous", text="Nerves are a sign you care. Use that energy."),
+    Quote(mood="Relaxed", text="Relaxation is the gateway to clarity."),
+    Quote(mood="Overwhelmed", text="You do not have to do it all at once. One step at a time."),
+    Quote(mood="Inspired", text="Inspiration exists, but it has to find you working."),
+    Quote(mood="Lonely", text="You are never alone. The world is full of people who care."),
+    Quote(mood="Grateful", text="Gratitude turns what we have into enough."),
+    Quote(mood="Bored", text="Boredom is the birthplace of creativity."),
+    Quote(mood="Confident", text="Believe in yourself and the world will follow."),
+    Quote(mood="Restless", text="Let your restlessness lead you to new adventures."),
+    Quote(mood="Curious", text="Stay curious. It is how you learn and grow.")
 ]
+
 session.add_all(quotes)
 session.commit()
 print("Quotes seeded successfully!")
