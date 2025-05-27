@@ -41,4 +41,4 @@ for i in range(30):  # 15 logs total for more variety
 session.add_all(mood_logs)
 session.commit()
 
-print("Database seeded with 3 users and 15 creative mood logs!")
+print("Database seeded with 3 users and 30 creative mood logs!")
