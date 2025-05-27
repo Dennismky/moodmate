@@ -1,7 +1,9 @@
 
-from models import Base, engine
+from lib.db.base import Base
+from lib.db.models import User, MoodLog, Suggestion
+from sqlalchemy import create_engine
 
-# creating all tables in the database
+engine = create_engine('sqlite:///lib/db/moodmate.db')
 Base.metadata.create_all(engine)
 
-print("Tables created succesfully!")
+print("Database and all tables created successfully!")
