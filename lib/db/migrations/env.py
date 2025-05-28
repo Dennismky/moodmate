@@ -12,13 +12,10 @@ from alembic import context
 
 config = context.config
 
-
-# Interpret the config file for Python logging.
-# This line sets up loggers basically.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# Import the Base metadata for autogenerate support
+
 from lib.db.models import Base
 
 
@@ -47,7 +44,7 @@ def run_migrations_offline() -> None:
  def run_migrations_offline():
 
 
- def run_migrations_offline():
+  def run_migrations_offline():
 
 
     """Run migrations in 'offline' mode.

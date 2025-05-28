@@ -5,11 +5,7 @@ from datetime import datetime
 
 engine = create_engine('sqlite:///moodmate.db')
 Base = declarative_base()
-
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey
-from sqlalchemy.orm import relationship
-from datetime import datetime
-from lib.db.base import Base  
+from lib.db.base import Base
 
 
 
