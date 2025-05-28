@@ -1,21 +1,14 @@
-
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime, create_engine
+from sqlalchemy.orm import relationship, declarative_base
 from datetime import datetime
-from .base import Base 
+
+# Set up the database engine and base class
+engine = create_engine('sqlite:///moodmate.db')
+Base = declarative_base()
 
 # ---------------------
 # User Model
 # ---------------------
-from sqlalchemy import Column, Integer, String, DateTime, ForeignKey, create_engine
-from sqlalchemy.orm import relationship, declarative_base
-from datetime import datetime
-
-engine = create_engine('sqlite:///moodmate.db') 
-
-Base = declarative_base()
-
-
 class User(Base):
     __tablename__ = 'users'
 
@@ -30,10 +23,6 @@ class User(Base):
 # ---------------------
 # MoodLog Model
 # ---------------------
-    name = Column(String)
-    mood_logs = relationship("MoodLog", backref="user")
-
-
 class MoodLog(Base):
     __tablename__ = 'mood_logs'
 
@@ -48,8 +37,4 @@ class MoodLog(Base):
     def __repr__(self):
         return f"<MoodLog(id={self.id}, mood='{self.mood}', timestamp='{self.timestamp}')>"
 
-
-    mood = Column(String)
-    timestamp = Column(DateTime, default=datetime.utcnow)
-    user_id = Column(Integer, ForeignKey('users.id'))
 
