@@ -18,7 +18,7 @@ config = context.config
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
 
-# Import the Base metadata
+# Import the Base metadata for autogenerate support
 from lib.db.models import Base
 target_metadata = Base.metadata
 
@@ -75,4 +75,5 @@ if context.is_offline_mode():
     run_migrations_offline()
 else:
     run_migrations_online()
+
 

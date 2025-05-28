@@ -37,4 +37,12 @@ class MoodLog(Base):
     def __repr__(self):
         return f"<MoodLog(id={self.id}, mood='{self.mood}', timestamp='{self.timestamp}')>"
 
+# ---------------------
+# Quote Model (new in master)
+# ---------------------
+class Quote(Base):
+    __tablename__ = 'quotes'
 
+    id = Column(Integer, primary_key=True)
+    mood = Column(String, nullable=False)
+    text = Column(String, nullable=False)
