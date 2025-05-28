@@ -1,5 +1,5 @@
-from db.models import User, MoodLog
-from helpers import get_random_suggestion
+from lib.db.models import User, MoodLog
+from lib.helpers import get_random_suggestion
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
 
