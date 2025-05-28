@@ -18,6 +18,7 @@ class MoodLog(Base):
     mood = Column(String)
     timestamp = Column(DateTime, default=datetime.utcnow)
     user_id = Column(Integer, ForeignKey('users.id'))
+ 
 
 class Suggestion(Base):
     __tablename__ = 'suggestions'
@@ -29,3 +30,12 @@ class Suggestion(Base):
     user_id = Column(Integer, ForeignKey('users.id'), nullable=True)
 
     user = relationship("User", back_populates="suggestions")
+
+    
+class Quote(Base):
+    __tablename__ = 'quotes'
+
+    id = Column(Integer, primary_key=True)
+    mood = Column(String, nullable=False)
+    text = Column(String, nullable=False)
+
