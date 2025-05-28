@@ -60,16 +60,6 @@ def delete_mood_log(log_id):
     session.commit()
     print(f"Deleted mood log ID {log_id}")
 
-# # example 
-# if __name__ == "__main__":
-#     create_mood_log("Christina", "Peaceful")
-#     print("\nAll Mood Logs:")
-#     read_mood_logs()
-#     print("\nChristina's Mood Logs:")
-#     read_mood_logs("Christina")
-#     update_mood_log(1, "Joyful")
-#     delete_mood_log(1)
-
 
 
 def create_suggestion(db_session, text, mood=None, user_name=None):
