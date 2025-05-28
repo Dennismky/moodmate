@@ -2,13 +2,10 @@ from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime, crea
 from sqlalchemy.orm import relationship, declarative_base
 from datetime import datetime
 
-# Set up the database engine and base class
 engine = create_engine('sqlite:///moodmate.db')
 Base = declarative_base()
 
-# ---------------------
-# User Model
-# ---------------------
+
 class User(Base):
     __tablename__ = 'users'
 
@@ -20,9 +17,7 @@ class User(Base):
     def __repr__(self):
         return f"<User(id={self.id}, name='{self.name}')>"
 
-# ---------------------
-# MoodLog Model
-# ---------------------
+
 class MoodLog(Base):
     __tablename__ = 'mood_logs'
 
@@ -37,9 +32,7 @@ class MoodLog(Base):
     def __repr__(self):
         return f"<MoodLog(id={self.id}, mood='{self.mood}', timestamp='{self.timestamp}')>"
 
-# ---------------------
-# Quote Model (new in master)
-# ---------------------
+
 class Quote(Base):
     __tablename__ = 'quotes'
 
