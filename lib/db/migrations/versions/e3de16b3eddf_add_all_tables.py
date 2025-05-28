@@ -29,11 +29,7 @@ def upgrade() -> None:
     sa.Column('text', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('users',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
-    )
+   
     op.create_table('mood_logs',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('mood', sa.String(), nullable=True),
@@ -55,8 +51,8 @@ def upgrade() -> None:
 
 
 def downgrade() -> None:
-   revision = 'e3de16b3eddf'
-down_revision = None
+    revision = 'e3de16b3eddf'
+down_revision = 'ac64aef8dc5b'
 branch_labels = None
 depends_on = None
 
@@ -69,19 +65,8 @@ def upgrade():
     sa.Column('text', sa.String(), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
-    op.create_table('users',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(), nullable=True),
-    sa.PrimaryKeyConstraint('id')
-    )
-    op.create_table('mood_logs',
-    sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('mood', sa.String(), nullable=True),
-    sa.Column('timestamp', sa.DateTime(), nullable=True),
-    sa.Column('user_id', sa.Integer(), nullable=True),
-    sa.ForeignKeyConstraint(['user_id'], ['users.id'], ),
-    sa.PrimaryKeyConstraint('id')
-    )
+    
+   
     op.create_table('suggestions',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('text', sa.String(), nullable=False),
