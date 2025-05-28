@@ -13,7 +13,7 @@ Session = sessionmaker(bind=engine)
 session = Session()
 
 
-# CREATE
+
 
 def create_mood_log(user_name, mood):
     user = session.query(User).filter_by(name=user_name).first()
@@ -25,7 +25,7 @@ def create_mood_log(user_name, mood):
     session.commit()
     print(f"Mood '{mood}' added for user '{user_name}'")
 
-# READ
+
 
 def read_mood_logs(user_name=None):
     if user_name:
@@ -37,7 +37,7 @@ def read_mood_logs(user_name=None):
         print(f"{user.name}: {log.mood} at {log.timestamp}")
 
 
-# UPDATE
+
 
 def update_mood_log(log_id, new_mood):
     log = session.query(MoodLog).filter_by(id=log_id).first()
@@ -49,7 +49,6 @@ def update_mood_log(log_id, new_mood):
     print(f"Updated mood log ID {log_id} to '{new_mood}'")
 
 
-# DELETE
 
 def delete_mood_log(log_id):
     log = session.query(MoodLog).filter_by(id=log_id).first()
