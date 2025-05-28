@@ -1,10 +1,19 @@
+
+from models import  MoodLog,engine
+
 from models import User, MoodLog, engine, Quote
+
 from sqlalchemy.orm import sessionmaker
-from datetime import datetime, timedelta
+from datetime import datetime, timedelta, timezone
+from lib.db.create import engine, Base
+from lib.db.models import Suggestion, User
+
+
 import random
 
 Session = sessionmaker(bind=engine)
 session = Session()
+
 
 quotes = [
     Quote(mood="Happy", text="Happiness is only real when shared."),
@@ -33,9 +42,13 @@ session.add_all(quotes)
 session.commit()
 print("Quotes seeded successfully!")
 
+
 session.query(MoodLog).delete()
+session.query(Suggestion).delete()
 session.query(User).delete()
 session.commit()
+
+
 
 users = [
     User(name="Christina"),
@@ -46,12 +59,28 @@ session.add_all(users)
 session.commit()
 
 
+
+
 moods = [
     "Happy", "Sad", "Excited", "Anxious", "Calm",
     "Energetic", "Tired", "Frustrated", "Hopeful", "Content",
     "Nervous", "Relaxed", "Overwhelmed", "Inspired", "Lonely",
     "Grateful", "Bored", "Confident", "Restless", "Curious"
 ]
+
+
+
+now = datetime.now(timezone.utc)
+
+
+mood_logs = []
+for _ in range(30):
+    mood = random.choice(moods)
+    user = random.choice(users)
+    
+    timestamp = now - timedelta(days=random.randint(0, 9),
+                                hours=random.randint(0, 23),
+                                minutes=random.randint(0, 59))
 
 
 mood_logs = []
@@ -66,9 +95,30 @@ for i in range(30):
     user = random.choice(users)
 
     timestamp = now - timedelta(days=random.randint(0, 9), hours=random.randint(0,23), minutes=random.randint(0,59))
+
     mood_logs.append(MoodLog(mood=mood, timestamp=timestamp, user_id=user.id))
 
 session.add_all(mood_logs)
 session.commit()
 
-print("Database seeded with 3 users and 30 creative mood logs!")
+print("Database seeded with 3 users and 30 mood logs!")
+
+
+def seed_suggestions():
+    suggestions_data = [
+        {"text": "Take a deep breath and relax.", "mood": "stressed"},
+        {"text": "Go for a short walk outside.", "mood": "sad"},
+        {"text": "Try writing down three things you're grateful for.", "mood": "neutral"},
+        {"text": "Call a friend or family member.", "mood": "lonely"},
+        {"text": "Listen to your favorite upbeat music.", "mood": "happy"},
+    ]
+
+    for s in suggestions_data:
+        suggestion = Suggestion(text=s["text"], mood=s["mood"])
+        session.add(suggestion)
+
+    session.commit()
+    print("Seeded suggestions table with default data.")
+
+if __name__ == "__main__":
+    seed_suggestions()
