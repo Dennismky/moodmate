@@ -1,31 +1,27 @@
-
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime, create_engine
-from sqlalchemy.orm import relationship, declarative_base
+from sqlalchemy import Column, Integer, String, Text, DateTime, ForeignKey
+from sqlalchemy.orm import relationship
 from datetime import datetime
 
-engine = create_engine('sqlite:///moodmate.db')
-Base = declarative_base()
-from lib.db.base import Base
+from lib.db.base import Base  
 
 
+# User Model
 
 class User(Base):
     __tablename__ = 'users'
 
     id = Column(Integer, primary_key=True)
-
     name = Column(String, nullable=False)
 
-    mood_logs = relationship('MoodLog', back_populates='user')
+    mood_logs = relationship("MoodLog", back_populates="user")
+    suggestions = relationship("Suggestion", back_populates="user")
 
     def __repr__(self):
         return f"<User(id={self.id}, name='{self.name}')>"
 
 
-    name = Column(String)
-    mood_logs = relationship("MoodLog", backref="user")
-    suggestions = relationship("Suggestion", back_populates="user")
 
+# MoodLog Model
 
 class MoodLog(Base):
     __tablename__ = 'mood_logs'
@@ -43,8 +39,7 @@ class MoodLog(Base):
 
 
 
-    user_id = Column(Integer, ForeignKey('users.id'))
-
+# Suggestion Model
 
 class Suggestion(Base):
     __tablename__ = 'suggestions'
@@ -57,7 +52,12 @@ class Suggestion(Base):
 
     user = relationship("User", back_populates="suggestions")
 
-    
+    def __repr__(self):
+        return f"<Suggestion(id={self.id}, text='{self.text}')>"
+
+
+
+# Quote Model
 
 class Quote(Base):
     __tablename__ = 'quotes'
@@ -65,3 +65,6 @@ class Quote(Base):
     id = Column(Integer, primary_key=True)
     mood = Column(String, nullable=False)
     text = Column(String, nullable=False)
+
+    def __repr__(self):
+        return f"<Quote(id={self.id}, mood='{self.mood}', text='{self.text}')>"

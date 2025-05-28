@@ -61,8 +61,6 @@ def delete_mood_log(log_id):
 
 
 
-
-
 def create_suggestion(db_session, text, mood=None, user_name=None):
     user = None
     if user_name:
