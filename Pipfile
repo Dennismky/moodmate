@@ -5,10 +5,10 @@ name = "pypi"
 
 [packages]
 ipdb = "*"
-sqlalchemy = "*"
 alembic = "*"
 flask = "*"
 flask-cors = "*"
+sqlalchemy = "*"
 
 [dev-packages]
 
