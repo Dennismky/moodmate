@@ -32,25 +32,26 @@ Ensure you have the following installed:
     cd api
     pipenv install flask flask-cors sqlalchemy
 
- . If your code uses a custom module in lib/, set the project path:
-        export PYTHONPATH=.
+If your code uses a custom module in lib/, set the project path:
+export PYTHONPATH=.
 
-    Run the backend server:
-        PYTHONPATH=. pipenv run python app.py
-         The backend will start at: http://127.0.0.1:5000
+Run the backend server:
+    PYTHONPATH=. pipenv run python app.py
+The backend will start at: http://127.0.0.1:5000
 
 3  Set Up the Frontend
 
-    In a new terminal:
-        cd moodmate/frontend
-        npm install
+In a new terminal:
+    cd moodmate/frontend
+    npm install
 
 Start the development server:
-        npm run dev
-        The frontend will start at: http://localhost:5173
+    npm run dev
+The frontend will start at:
+     http://localhost:5173
 
 
-        APPLICATION USAGE:
+APPLICATION USAGE:
 
 1 Visit http://localhost:5173 in your browser.
 
@@ -66,39 +67,25 @@ Start the development server:
 
 
 
- API Endpoints
-
-Method	    Endpoint	        Description
-POST	    /login	            Log in or create a new user
-POST	    /moods	            Log a new mood
-GET	        /moods/<username>	Fetch mood logs for a user
-DELETE	    /moods/<mood_id>	Delete a mood log by ID
-
-
-Sample Moods
+SAMPLE MOODS
 
 Happy
-
 Sad
-
 Angry
-
 Jovial
-
 Anxious
-
 Energetic
 
 
 TROUBLESHOOTING
 
 ❌ ModuleNotFoundError: No module named 'flask'
-→ Run pipenv install flask inside the api/ directory.
+    → Run pipenv install flask inside the api/ directory.
 
 ❌ npm run dev fails
-→ Make sure you're in frontend/ and you've run npm install.
+    → Make sure you're in frontend/ and you've run npm install.
 
 ❌ CORS issues
-→ Ensure flask-cors is installed and properly configured in app.py.
+    → Ensure flask-cors is installed and properly configured in app.py.
 
 
