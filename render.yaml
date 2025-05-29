@@ -1,0 +1,24 @@
+services:
+  - type: web
+    name: moodmate-backend-frontend
+    env: python
+    region: oregon  # or your preferred region
+    plan: free
+    branch: main   # or your branch name like Valarie
+    buildCommand: |
+      # Build React frontend
+      cd frontend
+      npm install
+      npm run build
+      cd ..
+      # Move React build files to Flask static folder
+      rm -rf api/static
+      mv frontend/build api/static
+      # Install Python backend dependencies
+      pip install -r api/requirements.txt
+    startCommand: python api/app.py
+    autoDeploy: true
+    healthCheckPath: "/"
+    envVars:
+      - key: FLASK_ENV
+        value: production

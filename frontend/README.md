@@ -1,70 +1,104 @@
-# Getting Started with Create React App
+# MoodMate
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+MoodMate is a full-stack mood tracker app built with **Flask (Python)** on the backend and **React (JavaScript)** on the frontend. Users can log their moods, get mood-based suggestions, and track their emotional journey over time.
 
-## Available Scripts
+## Tech Stack
 
-In the project directory, you can run:
+- **Frontend:** React + Vite
+- **Backend:** Flask + SQLAlchemy
+- **Database:** SQLite
+- **Package Managers:** Pipenv (Python) & npm (Node.js)
+- **API Communication:** REST (Fetch)
 
-### `npm start`
+## Requirements
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+Ensure you have the following installed:
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+- Python 3.8+
+- Pipenv (install via `pip install pipenv`)
+- Node.js & npm (https://nodejs.org)
+- Git
 
-### `npm test`
+## Getting Started
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1 . Clone the Repository
 
-### `npm run build`
+    ```bash
+    git clone https://github.com/your-username/moodmate.git
+    cd moodmatey
+    
+2  Set Up the Backend
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+    cd api
+    pipenv install flask flask-cors sqlalchemy
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ . If your code uses a custom module in lib/, set the project path:
+        export PYTHONPATH=.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+    Run the backend server:
+        PYTHONPATH=. pipenv run python app.py
+         The backend will start at: http://127.0.0.1:5000
 
-### `npm run eject`
+3  Set Up the Frontend
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+    In a new terminal:
+        cd moodmate/frontend
+        npm install
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Start the development server:
+        npm run dev
+        The frontend will start at: http://localhost:5173
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+        APPLICATION USAGE:
 
-## Learn More
+1 Visit http://localhost:5173 in your browser.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+2 Enter your name to log in.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+3 Select a mood from the dropdown and click Submit Mood.
 
-### Code Splitting
+4 A suggestion will appear based on your mood.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+5 Your mood history will display below.
 
-### Analyzing the Bundle Size
+6 You can also delete a past mood log using the Delete icon.
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+ API Endpoints
 
-### Advanced Configuration
+Method	    Endpoint	        Description
+POST	    /login	            Log in or create a new user
+POST	    /moods	            Log a new mood
+GET	        /moods/<username>	Fetch mood logs for a user
+DELETE	    /moods/<mood_id>	Delete a mood log by ID
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+Sample Moods
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+Happy
 
-### `npm run build` fails to minify
+Sad
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+Angry
+
+Jovial
+
+Anxious
+
+Energetic
+
+
+TROUBLESHOOTING
+
+❌ ModuleNotFoundError: No module named 'flask'
+→ Run pipenv install flask inside the api/ directory.
+
+❌ npm run dev fails
+→ Make sure you're in frontend/ and you've run npm install.
+
+❌ CORS issues
+→ Ensure flask-cors is installed and properly configured in app.py.
+
+

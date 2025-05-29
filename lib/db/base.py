@@ -1,13 +1,17 @@
-# lib/db/base.py
+import os
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker, declarative_base
 
-# SQLite database path (make sure this path matches your actual DB file)
-engine = create_engine("sqlite:///lib/db/moodmate.db", echo=True)
+# Get absolute path to the directory containing this file
+BASE_DIR = os.path.dirname(os.path.abspath(__file__))
 
-# Create a configured "Session" class and an instance
+# Build absolute path to the database file
+db_path = os.path.join(BASE_DIR, "moodmate.db")
+
+# Create SQLite engine with absolute path
+engine = create_engine(f"sqlite:///{db_path}", echo=True)
+
 Session = sessionmaker(bind=engine)
 session = Session()
 
-# Base class for models
 Base = declarative_base()
