@@ -19,6 +19,19 @@ MoodMate is a wellness app that helps users log their moods and receive personal
 - **Render** (for deployment)
 
 ---
+ ### Features
+- User login and creation by name
+
+- Mood logging with dynamic suggestions
+
+- Mood history fetch per user
+
+- Mood deletion by ID
+
+- Serves React frontend from /static/
+
+- CLI commands for DB management
+
 
 ##  Project Structure
 
@@ -26,7 +39,7 @@ moodmate-backend/
 ├── app.py # Main Flask app
 ├── lib/
 │ └── db/
-│ ├── models.py # SQLAlchemy models (User, MoodLog)
+│ ├── models.py # SQLAlchemy models (User, MoodLog,suggestions)
 │ └── base.py # Session and DB connection
 ├── static/ # React frontend (built files)
 ├── requirements.txt
@@ -47,20 +60,42 @@ git clone https://github.com/your-username/moodmate-backend.git
 cd moodmate-backend
 2. Set Up Virtual Environment
 ```bash```
-
-python -m venv venv
-source venv/bin/activate  # For Windows: venv\Scripts\activate
+   python -m venv venv
+    source venv/bin/activate  # For Windows: venv\Scripts\activate
 3. Install Requirements
 ```bash```
 
 pip install -r requirements.txt
 4. Run the App
 ```bash```
-
-python app.py
+   python app.py
 The backend will be available at http://localhost:5000
 
- API Documentation
+ ## API Documentation
+ ## CLI Tool for Database Management
+To handle database setup and maintenance via the command line, use the cli.py script:
+
+- Drop and Recreate Tables
+```bash```
+    python cli/manage.py reset
+  - Seed.py
+```bash```
+   python cli.py seed
+
+- Create Tables (Initial Setup)
+```bash```
+  python cli/manage.py create
+These commands interact with SQLAlchemy's session and models to manage your SQLite  database.
+
+## API Endpoints
+Method	Route	Description
+GET	/	Welcome message
+POST	/login	Login or create user
+POST	/moods	Log a mood
+GET	/moods/<username>	Get all moods for user
+DELETE	/moods/<mood_id>	Delete mood by ID
+
+
  POST /login
 Create or return a user.
 
@@ -154,20 +189,20 @@ Bored
 Curious
 (and more...)
 
- Testing with curl
+ ### Testing with curl
 ```bash```
 
 curl -X POST http://localhost:5000/login \
 -H "Content-Type: application/json" \
 -d '{"name": "Christina"}'
 ☁️ Deploying to Render
-Push your code to GitHub.
+2. Push your code to GitHub.
 
-Go to render.com.
+3. Go to render.com.
 
-Create a new Web Service:
+4. Create a new Web Service:
 
-Build Command:
+5. Build Command:
 
 ```bash```
 
@@ -175,15 +210,14 @@ pip install -r requirements.txt
 Start Command:
 
 ```bash```
+    gunicorn app:app
+- Add necessary environment variables (if using PostgreSQL).
 
-gunicorn app:app
-Add necessary environment variables (if using PostgreSQL).
+- Set the root directory to the project folder.
 
-Set the root directory to the project folder.
+- Enable auto-deploy on push (optional).
 
-Enable auto-deploy on push (optional).
-
-Hit "Deploy"!
+- Hit "Deploy"!
 
    ### Notes
 Make sure your frontend build files are in the static/ directory.
