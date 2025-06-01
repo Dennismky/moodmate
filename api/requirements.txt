@@ -1,5 +1,0 @@
-Flask
-Flask-Cors
-SQLAlchemy
-flask_sqlalchemy
-gunicorn
