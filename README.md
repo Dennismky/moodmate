@@ -1,4 +1,4 @@
- # MoodMate Backend
+ # MoodMate App
 
 MoodMate is a wellness app that helps users log their moods and receive personalized suggestions. This is the Flask-based backend that supports user authentication, mood tracking, and mood suggestions.
 
