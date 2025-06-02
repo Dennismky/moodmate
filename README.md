@@ -1,111 +1,104 @@
- # MoodMate App
+# MoodMate Backend
 
-MoodMate is a wellness app that helps users log their moods and receive personalized suggestions. This is the Flask-based backend that supports user authentication, mood tracking, and mood suggestions.
-
----
-
-##  Live Demo
-
-<!-- >  Deployed on: [https://moodmate-backend.onrender.com](https://moodmate-backend.onrender.com) -->
+**MoodMate** is a wellness app that lets users log moods and receive personalized suggestions for emotional well-being. This Flask-based backend powers user authentication, mood tracking, and mood-based suggestions.
 
 ---
 
-## Technoloy  used 
+## Live Demo
 
-- **Flask**
-- **SQLAlchemy**
-- **SQLite** (local) / **PostgreSQL** (production)
-- **CORS**
-- **Render** (for deployment)
+- **Backend**: [https://moodmate-6-z0a4.onrender.com](https://moodmate-6-z0a4.onrender.com)  
+- **Frontend**: [https://moodmate-frontend.netlify.app](https://moodmate-frontend.netlify.app)
 
 ---
- ### Features
-- User login and creation by name
 
-- Mood logging with dynamic suggestions
+## Technologies Used
 
-- Mood history fetch per user
+- `Flask`
+- `SQLAlchemy`
+- `SQLite` (development)
+- `PostgreSQL` (production)
+- `CORS`
+- `Render` (deployment)
 
-- Mood deletion by ID
+---
 
-- Serves React frontend from /static/
+## Features
 
-- CLI commands for DB management
+- User login 
+- Mood logging with personalized suggestions
+- Fetch user-specific mood history
+- Delete mood entries by ID
+ - Filter mood logs by date or mood
+ - Update mood logs
+- CLI tools for database management
+- Serves built React frontend from `/static/`
 
+---
 
-##  Project Structure
+## Project Structure
 
+```plaintext
 moodmate-backend/
-├── app.py # Main Flask app
+├── app.py                  # Main Flask application
 ├── lib/
-│ └── db/
-│ ├── models.py # SQLAlchemy models (User, MoodLog,suggestions)
-│ └── base.py # Session and DB connection
-├── static/ # React frontend (built files)
+│   └── db/
+│       ├── models.py       # SQLAlchemy models: User, MoodLog, Suggestion
+│       └── base.py         # DB setup and session config
+├── cli.py                  # CLI for DB operations
+├── static/                 # Compiled React frontend
 ├── requirements.txt
 └── README.md
 
-yaml
+## Local Setup Instructions
 
-
----
-
-## ⚙️ Local Setup Instructions
-
-### 1. Clone the Repository
-
+1. Clone the Repository
 ```bash```
+      git clone https://github.com/your-username/moodmate.git
 
-git clone https://github.com/your-username/moodmate-backend.git
-cd moodmate-backend
-2. Set Up Virtual Environment
+       cd moodmate
+
+2. Set Up a Virtual Environment
 ```bash```
    python -m venv venv
-    source venv/bin/activate  # For Windows: venv\Scripts\activate
-3. Install Requirements
+    source venv/bin/activate   # On Windows: venv\Scripts\activate
+3. Install Dependencies
 ```bash```
-
-pip install -r requirements.txt
+    pip install -r requirements.txt
 4. Run the App
 ```bash```
-   python app.py
-The backend will be available at http://localhost:5000
+    python app.py
+ Visit: http://localhost:5000
 
- ## API Documentation
- ## CLI Tool for Database Management
-To handle database setup and maintenance via the command line, use the cli.py script:
+## CLI Tool for Database Management
 
-- Drop and Recreate Tables
+1.Create Tables
 ```bash```
-    python cli/manage.py reset
-  - Seed.py
-```bash```
-   python cli.py seed
+  python cli.py create
 
-- Create Tables (Initial Setup)
+2.Seed the Database
 ```bash```
-  python cli/manage.py create
-These commands interact with SQLAlchemy's session and models to manage your SQLite  database.
+    python cli.py seed
+3.Drop and Recreate Tables
+```bash```
+   python cli.py reset
 
 ## API Endpoints
-Method	Route	Description
+
+Method	Endpoint	Description
 GET	/	Welcome message
-POST	/login	Login or create user
-POST	/moods	Log a mood
-GET	/moods/<username>	Get all moods for user
-DELETE	/moods/<mood_id>	Delete mood by ID
+POST	/login	Create or log in a user
+POST	/moods	Log a new mood
+GET	/moods/<username>	Fetch moods for a user
+DELETE	/moods/<int:mood_id>	Delete mood by ID
 
-
- POST /login
-Create or return a user.
-
-Request:
+## POST /login
+1.Request
 json
 
 {
   "name": "Christina"
 }
-Response:
+Response
 json
 
 {
@@ -113,16 +106,14 @@ json
   "name": "Christina"
 }
  POST /moods
-Log a new mood and get a suggestion.
-
-Request:
+Request
 json
 
 {
   "user_id": 1,
   "mood": "happy"
 }
-Response:
+Response
 json
 
 {
@@ -130,12 +121,11 @@ json
   "suggestion": "Treat yourself to something nice."
 }
  GET /moods/<username>
-Retrieve all mood logs for a specific user.
+Example
+bash
 
-Example:
 GET /moods/Christina
-
-Response:
+Response
 json
 
 [
@@ -144,24 +134,19 @@ json
     "mood": "happy",
     "suggestion": "Go out for a walk and smile at strangers.",
     "timestamp": "2025-05-31 14:22"
-  },
-  ...
+  }
 ]
  DELETE /moods/<int:id>
-Delete a mood entry.
-
-Example:
+Example
+```bash```
 DELETE /moods/3
-
-Response:
+Response
 json
 
 {
   "message": "Mood deleted successfully"
 }
- Mood Suggestions
-A sample of moods supported with built-in suggestions:
-
+ Supported Moods & Suggestions
 Happy
 
 Sad
@@ -187,60 +172,41 @@ Confident
 Bored
 
 Curious
-(and more...)
+... and more!
 
- ### Testing with curl
-```bash```
+## Testing with curl
+bash
 
 curl -X POST http://localhost:5000/login \
 -H "Content-Type: application/json" \
 -d '{"name": "Christina"}'
-☁️ Deploying to Render
-2. Push your code to GitHub.
 
-3. Go to render.com.
+## Deploying to Render
+- Push code to GitHub
 
-4. Create a new Web Service:
+- Go to render.com and create a new Web Service
 
-5. Build Command:
+- Set the following:
 
+- Build Command:
+``bash``
+   pip install -r requirements.txt
+- Start Command:
 ```bash```
+   gunicorn api.app:app
+- Add environment variables as needed (e.g., for PostgreSQL)
 
-pip install -r requirements.txt
-Start Command:
+- Ensure frontend build is in the /static/ folder
 
-```bash```
-    gunicorn app:app
-- Add necessary environment variables (if using PostgreSQL).
+- Deploy
 
-- Set the root directory to the project folder.
+## Authors
+1.Dennis Muasya
 
-- Enable auto-deploy on push (optional).
+2.Christina Wachia Manga
 
-- Hit "Deploy"!
-
-   ### Notes
-Make sure your frontend build files are in the static/ directory.
-
-The backend is set up to serve a React frontend 
-
-For production, connect PostgreSQL and update lib/db/base.py.
-
-## Author
-Christina Wachia Manga
-📧 christinamanga98@gmail.com
+3.Vallery Jepleting
 
 ## License
-MIT
-
-yaml
-
-
----
-
-
-
-
-
-
+Licensed under the MIT License
 
