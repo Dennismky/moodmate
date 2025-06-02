@@ -9,6 +9,7 @@ alembic = "*"
 flask = "*"
 flask-cors = "*"
 sqlalchemy = "*"
+flake8 = "*"
 
 [dev-packages]
 

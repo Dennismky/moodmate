@@ -14,7 +14,33 @@ session = Session()
 
 
 
+# user
+def get_or_create_user(name):
+    user = session.query(User).filter_by(name=name).first()
+    if not user:
+        user = User(name=name)
+        session.add(user)
+        session.commit()
+    return user
 
+def get_user_by_name(name):
+    return session.query(User).filter_by(name=name).first()
+
+def get_user_by_id(user_id):
+    return session.query(User).get(user_id)
+
+def get_all_users():
+    return session.query(User).all()
+
+def delete_user(user_id):
+    user = get_user_by_id(user_id)
+    if user:
+        session.delete(user)
+        session.commit()
+        return True
+    return False
+
+# mood log
 def create_mood_log(user_name, mood):
     user = session.query(User).filter_by(name=user_name).first()
     if not user:
